@@ -1,113 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head> hi 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday SHREYA
-    </title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-   
-</head>
-<body> hi 
-    <div id="particles-js"></div>
-    <div class="floating-hearts" id="floatingHearts"></div>
-    <div class="petals" id="petalsContainer"></div>
-    
-    
-    <div class="container">
-        <div class="progress-bar">
-            <div class="progress" id="progressBar"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LineReady</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M20 6 9 17l-5-5" />
+      </symbol>
+      <symbol id="icon-alert" viewBox="0 0 24 24">
+        <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" />
+        <path d="M12 9v4" />
+        <path d="M12 17h.01" />
+      </symbol>
+      <symbol id="icon-radio" viewBox="0 0 24 24">
+        <path d="M5 4v16" />
+        <path d="M19 4v16" />
+        <path d="M8 7h8" />
+        <path d="M8 12h8" />
+        <path d="M8 17h8" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24">
+        <path d="m22 2-7 20-4-9-9-4Z" />
+        <path d="M22 2 11 13" />
+      </symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </symbol>
+      <symbol id="icon-map" viewBox="0 0 24 24">
+        <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z" />
+        <path d="M9 3v15" />
+        <path d="M15 6v15" />
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M7 10l5 5 5-5" />
+        <path d="M12 15V3" />
+      </symbol>
+    </svg>
+
+    <div class="app-shell">
+      <aside class="rail" aria-label="Primary">
+        <div class="brand">
+          <span class="brand-mark">LR</span>
+          <span>
+            <strong>LineReady</strong>
+            <small>Field ops</small>
+          </span>
         </div>
 
-        <!-- Step 1: Greeting -->
-        <div class="step" id="step1">
-            <h1>Happy Birthday, SASK </h1>
-            <p>I've created something magical just for you.</p>
-            <p>Are you ready to begin this special journey?</p>
-            <img src="https://png.pngtree.com/png-vector/20250422/ourmid/pngtree-cute-girl-holding-birthday-cake-smiling-cheerfully-png-image_16067658.png" style="height: 200px;width: 200px;" alt="">
-            <button class="btn" onclick="nextStep()">Open Your Gift</button>
-        </div>
+        <nav class="nav-tabs" aria-label="Sections">
+          <button class="nav-tab active" data-view="dashboard">
+            <svg><use href="#icon-radio"></use></svg>
+            <span>Board</span>
+          </button>
+          <button class="nav-tab" data-view="tasks">
+            <svg><use href="#icon-check"></use></svg>
+            <span>Tasks</span>
+          </button>
+          <button class="nav-tab" data-view="incidents">
+            <svg><use href="#icon-alert"></use></svg>
+            <span>Incidents</span>
+          </button>
+          <button class="nav-tab" data-view="handoff">
+            <svg><use href="#icon-send"></use></svg>
+            <span>Handoff</span>
+          </button>
+        </nav>
 
-        <!-- Step 2: Name Input -->
-        <div class="step" id="step2">
-            <h2>Let's Make This Personal</h2>
-            <p>What's the name of the most weirdest birthday girl in the world?</p>
-            <input type="text" class="name-input" id="nameInput" placeholder="Enter your name">
-            <button class="btn" onclick="saveName()">Continue</button>
+        <div class="shift-block">
+          <p>Current shift</p>
+          <strong id="shiftWindow">06:00-14:00</strong>
+          <span id="syncState">Saved locally</span>
         </div>
+      </aside>
 
-        <!-- Step 3: Heart Animation -->
-        <div class="step" id="step3">
-            <h2>For You, <span id="displayName">SASK</span></h2>
-            <p>Click on the heart to unveil something </p>
-            <div class="heart" id="interactiveHeart" onclick="createHearts()"></div>
-            <div id="heartMessage" class="message-box">
-                <p>Every beat represents the year , <span id="heartName">SASK</span>.</p>
-            </div>
-            <button class="btn" onclick="nextStep()">Continue to Your Message</button>
-        </div>
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="todayLabel"></p>
+            <h1>Operations board</h1>
+          </div>
+          <div class="status-strip" aria-label="Shift status">
+            <span><b id="openCount">0</b> open</span>
+            <span><b id="doneCount">0</b> done</span>
+            <span><b id="incidentCount">0</b> incidents</span>
+          </div>
+        </header>
 
-        <!-- Step 4: Birthday Message -->
-        <div class="step" id="step4">
-            <h2>My Special Message For You</h2>
-            <div class="photo-frame">
-                <!-- Replace with your image path -->
-                <img src="https://medias.artmajeur.com/standard/17262319_a-cutel-european-girl-full-bodycartoon-style-illustration-drawn-with-posca-markers-pretty-face-586679414-1.jpg?v=1738402496" alt="Beautiful You">
-            </div>
-            <div id="typedMessage" class="message-box">
-                <p class="typing-effect" id="typingText"></p>
-            </div>
-            <button class="btn" onclick="nextStep()">See Your Surprise</button>
-        </div>
-
-        <!-- Step 5: Memory Lane -->
-        <div class="step" id="step5">
-            <h2>Our Special Moments</h2>
-            <p>Some memories I'll cherish forever...</p>
-            <div class="memory-container">
-                <div class="polaroid">
-                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Memory 1">
-                    <div class="polaroid-caption">Our First message </div>
+        <section class="view active" id="dashboard" aria-label="Operations board">
+          <div class="grid two">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Priority queue</p>
+                  <h2>Next actions</h2>
                 </div>
-                <div class="polaroid">
-                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Memory 2">
-                    <div class="polaroid-caption">All the intersting things</div>
-                </div>
-               
-            </div>
-            <button class="btn" onclick="nextStep()">Your Final Surprise</button>
-        </div>
+                <button class="icon-button" id="quickTaskButton" title="Add task" aria-label="Add task">
+                  <svg><use href="#icon-plus"></use></svg>
+                </button>
+              </div>
+              <div class="task-list" id="priorityList"></div>
+            </section>
 
-        <!-- Step 6: Final Wish -->
-        <div class="step" id="step6">
-            <h1>🎉 Happy Birthday, <span id="finalName">SHREYA 💖</span>! 🎂</h1>
-        
-            <p>✨ May your day be filled with endless joy, sweet laughter, and all the love your heart can hold ✨</p>
-            <p>🌟 You light up my world just by being in it — like a million stars in my sky. 🌌</p>
-        
-        
-            <p>💌 With all my love, forever and always... 💫</p>
-        
-            <div class="signature">Yours truly, jo</div>
-        
-            <div class="social-share">
-                <div class="social-icon" onclick="shareOnSocial('facebook')" title="Share on Facebook">
-                    <i class="fab fa-facebook-f"></i>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Coverage</p>
+                  <h2>Zones</h2>
                 </div>
-                <div class="social-icon" onclick="shareOnSocial('twitter')" title="Share on Twitter">
-                    <i class="fab fa-twitter"></i>
-                </div>
-                <div class="social-icon" onclick="shareOnSocial('whatsapp')" title="Share on WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
+                <svg class="head-icon"><use href="#icon-map"></use></svg>
+              </div>
+              <div class="zone-map" aria-label="Zone coverage">
+                <button class="zone active" data-zone="North gate">North gate<span>2 checks</span></button>
+                <button class="zone warn" data-zone="Loading bay">Loading bay<span>1 alert</span></button>
+                <button class="zone" data-zone="Treatment room">Treatment room<span>clear</span></button>
+                <button class="zone" data-zone="Cold store">Cold store<span>clear</span></button>
+              </div>
+            </section>
+          </div>
+
+          <div class="grid three">
+            <section class="metric-panel">
+              <span class="metric-dot green"></span>
+              <p>Ready staff</p>
+              <strong>18</strong>
+            </section>
+            <section class="metric-panel">
+              <span class="metric-dot amber"></span>
+              <p>Pending checks</p>
+              <strong id="pendingChecks">0</strong>
+            </section>
+            <section class="metric-panel">
+              <span class="metric-dot red"></span>
+              <p>Escalations</p>
+              <strong id="escalations">0</strong>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Live log</p>
+                <h2>Shift notes</h2>
+              </div>
+              <button class="icon-button" id="exportButton" title="Download report" aria-label="Download report">
+                <svg><use href="#icon-download"></use></svg>
+              </button>
             </div>
-        </div>
-        
+            <div class="timeline" id="timeline"></div>
+          </section>
+        </section>
+
+        <section class="view" id="tasks" aria-label="Tasks">
+          <form class="entry-form" id="taskForm">
+            <label>
+              Task
+              <input name="title" required maxlength="80" placeholder="Restock PPE station" />
+            </label>
+            <label>
+              Zone
+              <select name="zone">
+                <option>North gate</option>
+                <option>Loading bay</option>
+                <option>Treatment room</option>
+                <option>Cold store</option>
+              </select>
+            </label>
+            <label>
+              Priority
+              <select name="priority">
+                <option>High</option>
+                <option selected>Medium</option>
+                <option>Low</option>
+              </select>
+            </label>
+            <button class="primary-button" type="submit">
+              <svg><use href="#icon-plus"></use></svg>
+              Add task
+            </button>
+          </form>
+
+          <div class="task-columns">
+            <section>
+              <h2>Open</h2>
+              <div class="task-list" id="openTasks"></div>
+            </section>
+            <section>
+              <h2>Done</h2>
+              <div class="task-list" id="doneTasks"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="incidents" aria-label="Incidents">
+          <form class="entry-form" id="incidentForm">
+            <label>
+              Issue
+              <input name="title" required maxlength="90" placeholder="Spill near loading bay" />
+            </label>
+            <label>
+              Severity
+              <select name="severity">
+                <option>Critical</option>
+                <option selected>Moderate</option>
+                <option>Low</option>
+              </select>
+            </label>
+            <label>
+              Owner
+              <input name="owner" required maxlength="40" placeholder="A. Khan" />
+            </label>
+            <button class="primary-button danger" type="submit">
+              <svg><use href="#icon-alert"></use></svg>
+              Log incident
+            </button>
+          </form>
+
+          <div class="incident-list" id="incidentList"></div>
+        </section>
+
+        <section class="view" id="handoff" aria-label="Handoff">
+          <form class="handoff-form" id="handoffForm">
+            <label>
+              Shift lead
+              <input name="lead" maxlength="50" placeholder="Your name" />
+            </label>
+            <label>
+              Handoff notes
+              <textarea name="notes" rows="8" placeholder="What should the next team know?"></textarea>
+            </label>
+            <button class="primary-button" type="submit">
+              <svg><use href="#icon-send"></use></svg>
+              Save handoff
+            </button>
+          </form>
+          <section class="panel handoff-preview">
+            <p class="eyebrow">Latest handoff</p>
+            <h2 id="handoffLead">No lead saved</h2>
+            <p id="handoffText">No notes yet.</p>
+          </section>
+        </section>
+      </main>
     </div>
-  <script src="script.js"></script>
-</body>
+
+    <template id="taskTemplate">
+      <article class="task-card">
+        <div>
+          <p class="task-meta"></p>
+          <h3></h3>
+        </div>
+        <button class="icon-button task-toggle" title="Toggle task" aria-label="Toggle task">
+          <svg><use href="#icon-check"></use></svg>
+        </button>
+      </article>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
 </html>
